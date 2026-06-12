@@ -1,0 +1,53 @@
+*{
+ margin: 0;
+ padding: 0;
+box-sizing: border-box;
+font-family: 'heletica neue';
+}
+html,
+body{
+height: 100%;
+ width: 100%;
+ background-color: black;
+ color: white;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+
+/* main{
+    padding: 20px 20px;
+}
+
+.c1{
+    margin-top: 100px;
+}
+
+input{
+    padding: 10px 10px;
+    margin-top: 20px;
+    font-size: 2rem;
+}
+
+button{
+    padding: 1.3rem 1.3rem;
+    border-radius: 50%;
+} */
+
+
+main{
+    height: 60%;
+    width: 80%;
+    background-color: grey;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    
+    gap: 20px;
+}   
+
+.box{
+    height: 40%;
+    width: 30%;
+    background-color: red;
+}
