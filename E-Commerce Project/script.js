@@ -114,12 +114,7 @@ const deleteProduct = (index)=>{
     ui();
 }
 
-const savedTheme = localStorage.getItem("theme");
 
-if(savedTheme === "dark"){
-    document.body.classList.add("dark");
-    themeBtn.textContent = "☀️";
-}
 themeBtn.addEventListener("click",()=>{
 
     document.body.classList.toggle("dark");
