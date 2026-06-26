@@ -1,4 +1,5 @@
 import React from "react";
+import About from "./assets/About";
 
 let App = ()=>{
   // let ui = React.createElement("div",{},
@@ -14,6 +15,19 @@ let App = ()=>{
       <h1>Hello</h1>
       <h2>Bye</h2>
       <h3>vapas aao</h3>
+      {/* {About("raghav")} */}  
+      {/* normal function */}
+
+      {/* <About width="300" name="raghav" /> */}
+
+      {/* <About element={<h1>hello</h1>} /> */}
+    {/* tum kbhi bhi ekement aese nhi bhejoge */}
+
+      <About width="300" element={<h1>hello</h1>}>
+        <h1>Hello i am children</h1>
+      </About>
+
+
     </div>
   );
   
