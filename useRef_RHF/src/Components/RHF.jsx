@@ -1,0 +1,47 @@
+import React from 'react'
+import { useForm } from 'react-hook-form';
+
+const RHF = () => {
+
+   console.log("Ract Hook Form Rendering");
+
+   let {register , handleSubmit, reset , formState:{errors},} = useForm();
+   
+   const formSubmit = (data)=>{
+      console.log(data);
+      reset();
+   }
+
+  return (
+     <div className='w-80 h-screen'>
+        REACT HOOK FORM
+     <form onSubmit={handleSubmit(formSubmit)} className='flex p-6 rounded bg-white  flex-col gap-4'>
+
+        <input {...register("productName")}
+          className='p-2 border border-gray-500 rounded' type="text" placeholder='Product Name' />
+
+        <input {...register("price")}
+        className='p-2 border border-gray-500 rounded' type="text" placeholder='Price' />
+      
+        <input {...register("category")}
+        className='p-2 border border-gray-500 rounded'type="text" placeholder='Category' />
+
+        <input {...register("image")}
+        className='p-2 border border-gray-500 rounded'type="text" placeholder='Image' />
+       
+        <button className='p-2 bg-blue-600 text-white rounded'>CREATE</button>
+     </form>
+
+    {/* <h1>{product.productName}</h1>
+    <h1>{product.price}</h1>
+    <h1>{product.category}</h1>
+    <h1>{product.image}</h1> */}
+
+
+    </div>
+  )
+}
+
+export default RHF
+
+// JIS BHI COMPONENT MEIN REACT HOOK FORM USE HOTA HAI WO 2 BAR RE-RENDER HOTA HAI
