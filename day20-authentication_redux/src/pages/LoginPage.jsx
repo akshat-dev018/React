@@ -6,11 +6,13 @@ import { useAuth } from '../hooks/authHooks';
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   
-    let {navigate} = useAuth();
+    let {navigate,register,handleSubmit,errors,loginForm} = useAuth();
+
+    
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-linear-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8">
         {/* Heading */}
         <div className="text-center mb-8">
@@ -21,17 +23,22 @@ const LoginPage = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit(loginForm)}
+        className="space-y-5">
           {/* Email */}
           <div>
             <label className="block text-gray-700 font-medium mb-2">
               Email
             </label>
             <input
+             {...register("email",
+              {required:"Email is required"}
+            )}
               type="email"
               placeholder="Enter your email"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-black"
             />
+          {errors.email && <p className='text-red-600'>{errors.email.message}</p>}
           </div>
 
           {/* Password */}
@@ -42,9 +49,18 @@ const LoginPage = () => {
 
             <div className="relative">
               <input
+                 {...register('password',
+                {required:'password is required',
+                  minLength:{
+                    value:8,
+                    message:"Minimum 8 characters are required"
+                  },
+                }
+              )}
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-16 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-16 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-black
+                "
               />
 
               <button
@@ -55,6 +71,7 @@ const LoginPage = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
+           {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
           </div>
 
           {/* Remember & Forgot */}

@@ -1,16 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router'
 import AuthLayout from '../layouts/AuthLayout'
 import LoginPage from '../pages/LoginPage'
 import RegisterPage from '../pages/RegisterPage'
 import MainLayout from '../layouts/MainLayout'
 import HomePage from '../pages/HomePage'
+import { toast } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { addUser } from '../features/authSlice'
+import PublicProtected from './protected/PublicProtected'
+import MainProtected from './protected/MainProtected'
 
 const AppRoutes = () => {
+
+    let dispatch = useDispatch()
+
+    const hydrateUser = ()=>{
+        let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+        if(!loggedInUser){
+            toast.error("UnAuthorized User");
+            return;
+        }
+
+        dispatch(addUser(loggedInUser));
+        
+    }
+
+    useEffect(()=>{
+        hydrateUser();
+    },[])
+
 
     let router = createBrowserRouter([
         {
             path:"/",
+           element:<PublicProtected/>,
+           children:[{
+            path: "",
             element:<AuthLayout/>,
             children:[
                 {
@@ -22,17 +49,22 @@ const AppRoutes = () => {
                     element:<RegisterPage/>
                 }
             ]
+           }]
         },
 
         {
             path:"/main",
-            element:<MainLayout/>,
-            children:[
-                {
+            element:<MainProtected/>,
+            children:[{
+                path: "",
+                element:<MainLayout/>,
+                children:[
+                   {
                     path:"",
                     element:<HomePage/>
-                },
-            ]
+                    },
+                  ]
+            }]
         }
 
     ])

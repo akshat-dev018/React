@@ -6,10 +6,10 @@ import { useAuth } from '../hooks/authHooks';
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   
-  let {navigate} = useAuth();
+  let {navigate,register,handleSubmit,errors,registerForm} = useAuth();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-linear-to-br from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8">
         {/* Heading */}
         <div className="text-center mb-8">
@@ -22,17 +22,23 @@ const RegisterPage = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form onSubmit={handleSubmit(registerForm)}
+        className="space-y-5">
           {/* Name */}
           <div>
             <label className="block text-gray-700 font-medium mb-2">
               Full Name
             </label>
             <input
+            {...register('name', {
+              required:"Name is required"
+            }
+            )}
               type="text"
               placeholder="Enter your name"
               className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             />
+            {errors.name && <p className='text-red-600'>{errors.name.message}</p>}
           </div>
 
           {/* Email */}
@@ -41,10 +47,14 @@ const RegisterPage = () => {
               Email
             </label>
             <input
+            {...register("email",
+              {required:"Email is required"}
+            )}
               type="email"
               placeholder="Enter your email"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-black"
             />
+           {errors.email && <p className='text-red-600'>{errors.email.message}</p>}
           </div>
 
           {/* Password */}
@@ -55,9 +65,17 @@ const RegisterPage = () => {
 
             <div className="relative">
               <input
+              {...register('password',
+                {required:'password is required',
+                  minLength:{
+                    value:8,
+                    message:"Minimum 8 characters are required"
+                  },
+                }
+              )}
                 type={showPassword ? "text" : "password"}
                 placeholder="Create a password"
-                className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-16 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-16 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-black"
               />
 
               <button
@@ -68,6 +86,7 @@ const RegisterPage = () => {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
+            {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
           </div>
 
           {/* Confirm Password */}
@@ -79,7 +98,7 @@ const RegisterPage = () => {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Confirm your password"
-              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-black"
             />
           </div>
 
