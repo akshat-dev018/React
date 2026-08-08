@@ -12,7 +12,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
+// ye wo client hai jo cache memory mein sb kuch data pauncha rha hai
 
 
 createRoot(document.getElementById('root')).render(
