@@ -9,7 +9,7 @@ const MainProtected = () => {
   if(isLoading) return <h1>Loading State</h1>
 
   if(!user){
-    <Navigate to={'/'} />
+  return  <Navigate to={'/'} />
   }
 
   
